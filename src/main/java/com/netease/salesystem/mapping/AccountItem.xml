@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netease.salesystem.dao.AccountItemDao">
+  <resultMap id="BaseResultMap" type="AccountItem">
+    <id column="orderid" jdbcType="INTEGER" property="orderid" />
+    <result column="goodsid" jdbcType="INTEGER" property="goodsid" />
+    <result column="paytime" jdbcType="TIMESTAMP" property="paytime" />
+    <result column="payprice" jdbcType="DECIMAL" property="payprice" />
+    <result column="paynum" jdbcType="INTEGER" property="paynum" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="imageurl" jdbcType="VARCHAR" property="imageurl" />
+  </resultMap>
+  <select id="selectAccountByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM TradeOrder LEFT JOIN Goods ON TradeOrder.goodsid = Goods.goodsid 
+    WHERE TradeOrder.userid = #{userid,jdbcType=INTEGER} ORDER BY TradeOrder.paytime 
+  </select>
+ </mapper>

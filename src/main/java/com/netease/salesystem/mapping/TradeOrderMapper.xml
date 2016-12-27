@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netease.salesystem.dao.TradeOrderDao">
+  <resultMap id="BaseResultMap" type="TradeOrder">
+    <id column="orderid" jdbcType="INTEGER" property="orderid" />
+    <result column="goodsid" jdbcType="INTEGER" property="goodsid" />
+    <result column="paytime" jdbcType="TIMESTAMP" property="paytime" />
+    <result column="payprice" jdbcType="DECIMAL" property="payprice" />
+    <result column="paynum" jdbcType="INTEGER" property="paynum" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    orderid, goodsid, paytime, payprice, paynum, userid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TradeOrder
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByGoodsid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TradeOrder
+    where goodsid = #{goodsid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from TradeOrder
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="TradeOrder">
+    insert into TradeOrder (goodsid, paytime, payprice, paynum, userid)
+    values (#{goodsid,jdbcType=INTEGER}, #{paytime,jdbcType=TIMESTAMP}, 
+      #{payprice,jdbcType=DECIMAL}, #{paynum,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="TradeOrder">
+    insert into TradeOrder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderid,
+      </if>
+      <if test="goodsid != null">
+        goodsid,
+      </if>
+      <if test="paytime != null">
+        paytime,
+      </if>
+      <if test="payprice != null">
+        payprice,
+      </if>
+      <if test="paynum != null">
+        paynum,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="paytime != null">
+        #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payprice != null">
+        #{payprice,jdbcType=DECIMAL},
+      </if>
+      <if test="paynum != null">
+        #{paynum,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="TradeOrder">
+    update TradeOrder
+    <set>
+      <if test="goodsid != null">
+        goodsid = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="paytime != null">
+        paytime = #{paytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payprice != null">
+        payprice = #{payprice,jdbcType=DECIMAL},
+      </if>
+      <if test="paynum != null">
+        paynum = #{paynum,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="TradeOrder">
+    update TradeOrder
+    set goodsid = #{goodsid,jdbcType=INTEGER},
+      paytime = #{paytime,jdbcType=TIMESTAMP},
+      payprice = #{payprice,jdbcType=DECIMAL},
+      paynum = #{paynum,jdbcType=INTEGER}
+      userid = #{userid,jdbcType=INTEGER}
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAccountByUserId" parameterType="Integer">
+  	SELECT * FROM TradeOrder WHERE userid = #{userid} ORDER BY paytime
+  </select>
+</mapper>

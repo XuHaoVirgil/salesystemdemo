@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netease.salesystem.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.netease.salesystem.pojo.User">
+    <id column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+  </resultMap>
+  <sql id="Base_Column_List">
+  	userid, name, password, role
+  </sql>
+  <select id="findUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from User
+    where name = #{username}
+  </select>
+</mapper>
